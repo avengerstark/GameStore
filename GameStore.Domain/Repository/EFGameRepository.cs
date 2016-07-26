@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using GameStore.Domain.Entities;
+using GameStore.Domain.Abstract;
+using GameStore.Domain.EF;
+
+namespace GameStore.Domain.Repository
+{
+    public class EFGameRepository : IGameRepository
+    {
+        EFDbContext context = new EFDbContext();
+
+        public IEnumerable<Game> Games
+        {
+            get { return context.Games; }
+        }
+    }
+}
