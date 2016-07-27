@@ -78,6 +78,7 @@
   <ItemGroup>
     <Compile Include="Abstract\IGameRepository.cs" />
     <Compile Include="EF\EFDbContext.cs" />
+    <Compile Include="Entities\Cart.cs" />
     <Compile Include="Entities\Game.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\EFGameRepository.cs" />

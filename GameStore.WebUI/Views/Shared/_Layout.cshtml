@@ -15,7 +15,8 @@
     </div>
     <div class="row panel">
         <div id="categories" class="col-xs-3">
-            Контент
+            <!--Встраиваем дочернее действие -->
+            @Html.Action("Menu","Nav")
         </div>
         <div class="col-xs-8">
             @RenderBody()
