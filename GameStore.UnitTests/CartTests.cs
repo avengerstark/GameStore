@@ -3,6 +3,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 using System.Collections.Generic;
 using GameStore.Domain.Entities;
+using GameStore.Domain.Abstract;
+using Moq;
+using GameStore.WebUI.Controllers;
 
 namespace GameStore.UnitTests
 {
@@ -100,6 +103,31 @@ namespace GameStore.UnitTests
 
             // Assert
             Assert.AreEqual(cart.Lines.Count(), 0);
+        }
+
+
+        // Тестируем добавление в корзину
+        [TestMethod]
+        public void Can_Add_To_Cart()
+        {
+            // Arrange
+            Mock<IGameRepository> mock = new Mock<IGameRepository>();
+
+            mock.Setup(m => m.Games).Returns(new List<Game>
+                {
+                    new Game {GameId = 1, Name = "Игра1", Category = "Кат1"},
+                }.AsQueryable());
+
+            Cart cart = new Cart();
+
+            CartController controller = new CartController(mock.Object);
+
+            // Act
+            controller.AddToCart(cart,1,null);
+
+            // Assert
+            Assert.AreEqual(cart.Lines.Count(),1);
+            Assert.AreEqual(cart.Lines.ToList()[0].Game.GameId, 1);
         }
     }
 }

@@ -17,5 +17,25 @@ namespace GameStore.Domain.Repository
         {
             get { return context.Games; }
         }
+
+        public void SaveGame(Game game)
+        {
+            if (game.GameId == 0)
+            {
+                context.Games.Add(game);
+            }
+            else
+            {
+                Game dbEntity = context.Games.Find(game.GameId);
+                if (dbEntity != null)
+                {
+                    dbEntity.Name = game.Name;
+                    dbEntity.Description = game.Description;
+                    dbEntity.Price = game.Price;
+                    dbEntity.Category = game.Category;
+                }
+            }
+            context.SaveChanges();
+        }
     }
 }
