@@ -90,5 +90,33 @@ namespace GameStore.UnitTests
             // Утверждение - проверка типа результата метода
             Assert.IsInstanceOfType(result, typeof(ViewResult));
         }
+
+
+        public void Can_Delete_Valid_Games()
+        {
+            // Arrange
+            Game game = new Game {GameId = 2, Name = "Игра2" };
+
+            // Организация - создание имитированного хранилища данных
+            Mock<IGameRepository> mock = new Mock<IGameRepository>();
+
+            mock.Setup(m => m.Games).Returns(new List<Game> { 
+            new Game { GameId = 1, Name = "Игра1"},
+            new Game { GameId = 2, Name = "Игра2"},
+            new Game { GameId = 3, Name = "Игра3"},
+            new Game { GameId = 4, Name = "Игра4"},
+            new Game { GameId = 5, Name = "Игра5"}
+            });
+
+            // Организация - создание контроллера
+            AdminController controller = new AdminController(mock.Object);
+
+            // Act - delete game
+            controller.Delete(game.GameId);
+
+            // Assert - проверка того, что метод удаления в хранилище
+            // вызывается для корректного объекта Game
+            mock.Verify(m=>m.DeleteGame(game.GameId));
+        }
     }
 }

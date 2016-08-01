@@ -46,5 +46,24 @@ namespace GameStore.WebUI.Controllers
             }
         }
 
+        // Метод Create() не визуализирует свое стандартное представление. Вместо этого в нем указано,
+        // что должно применяться представление Edit.
+        public ViewResult Create()
+        {
+            return View("Edit", new Game());
+        }
+
+
+        [HttpPost]
+        public ActionResult Delete(int gameId)
+        {
+            Game deleteGame = repository.DeleteGame(gameId);
+            if (deleteGame != null)
+            {
+                TempData["message"] = string.Format("Игра \"{0}\" была удалена",
+                                                deleteGame.Name);
+            }
+            return RedirectToAction("Index");
+        }
     }
 }

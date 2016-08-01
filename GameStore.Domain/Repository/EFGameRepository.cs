@@ -37,5 +37,17 @@ namespace GameStore.Domain.Repository
             }
             context.SaveChanges();
         }
+
+
+        public Game DeleteGame(int gameId)
+        {
+            Game game = context.Games.Find(gameId);
+            if (game != null)
+            {
+                context.Games.Remove(game);
+                context.SaveChanges();
+            }
+            return game;
+        }
     }
 }
