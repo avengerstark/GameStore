@@ -33,6 +33,9 @@ namespace GameStore.Domain.Repository
                     dbEntity.Description = game.Description;
                     dbEntity.Price = game.Price;
                     dbEntity.Category = game.Category;
+
+                    dbEntity.ImageData = game.ImageData;
+                    dbEntity.ImageMimeType = game.ImageMimeType;
                 }
             }
             context.SaveChanges();
